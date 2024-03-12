@@ -1,6 +1,6 @@
 import { z } from "zod";
 import { FastifyRequest, FastifyReply } from "fastify";
-import { UserAlreadyExistsError } from "@/services/errors/invalid-credentials-error";
+import { UserAlreadyExistsError } from "@/services/errors/user-already-exists-error";
 import { PrismaUsersRepository } from "@/repositories/prisma/prisma-users-repository";
 import { RegisterService } from "@/services/register";
 
