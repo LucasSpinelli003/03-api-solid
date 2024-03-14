@@ -11,7 +11,7 @@ export async function getUserProfile(
     id: z.string(),
   });
 
-  const { id } = requestSchema.parse(request.body);
+  const { id } = requestSchema.parse(request.params);
 
   try {
     const makeUserProfileService = makeGetUserProfileService();
