@@ -1,16 +1,22 @@
 import { describe } from "node:test";
-import { expect, it } from "vitest";
+import { beforeEach, expect, it } from "vitest";
 import { RegisterService } from "./register";
 import { compare } from "bcryptjs";
 import { InMemoryUsersRepository } from "@/repositories/in-memory/in-memory-users-repository";
 import { UserAlreadyExistsError } from "./errors/user-already-exists-error";
+import { UsersRepository } from "@/repositories/users-repository";
 
 describe("Register Service", () => {
-  it("should hash user password upon registration", async () => {
-    const inMemoryRepository = new InMemoryUsersRepository();
-    const registerService = new RegisterService(inMemoryRepository);
+  let inMemoryRepository: UsersRepository;
+  let sut: RegisterService;
 
-    const { user } = await registerService.execute({
+  beforeEach(() => {
+    inMemoryRepository = new InMemoryUsersRepository();
+    sut = new RegisterService(inMemoryRepository);
+  });
+
+  it("should hash user password upon registration", async () => {
+    const { user } = await sut.execute({
       name: "John Doe",
       email: "john.doe@gmail.com",
       password: "123456",
@@ -21,19 +27,16 @@ describe("Register Service", () => {
     expect(isPasswordHashed).toBe(true);
   });
   it("should not be able to register with the same email twice", async () => {
-    const inMemoryRepository = new InMemoryUsersRepository();
-    const registerService = new RegisterService(inMemoryRepository);
-
     const email = "john.doe@gmail.com";
 
-    await registerService.execute({
+    await sut.execute({
       name: "John Doe",
       email,
       password: "123456",
     });
 
     await expect(() =>
-      registerService.execute({
+      sut.execute({
         name: "John Doe",
         email,
         password: "123456",
@@ -41,12 +44,9 @@ describe("Register Service", () => {
     ).rejects.toBeInstanceOf(UserAlreadyExistsError);
   });
   it("should be able to register", async () => {
-    const inMemoryRepository = new InMemoryUsersRepository();
-    const registerService = new RegisterService(inMemoryRepository);
-
     const email = "john.doe@gmail.com";
 
-    const user = await registerService.execute({
+    const user = await sut.execute({
       name: "John Doe",
       email,
       password: "123456",
