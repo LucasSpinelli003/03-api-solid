@@ -1,4 +1,4 @@
-import { InMemoryCheckInsRepository } from "@/repositories/in-memory/in-memory-check-in-repository";
+import { InMemoryCheckInsRepository } from "@/repositories/in-memory/in-memory-check-ins-repository";
 import { beforeEach, describe, expect, it } from "vitest";
 import { CheckInService } from "./checkin";
 
@@ -16,9 +16,6 @@ describe("Check in test", () => {
       gymId: "testeGym",
       userId: "testeUser",
     });
-
-    console.log(checkIn);
-
     expect(checkIn.checkIn.id).toEqual(expect.any(String));
   });
 });
