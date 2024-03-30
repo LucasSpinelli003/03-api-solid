@@ -19,16 +19,17 @@ describe("Check in test", () => {
     expect(checkIn.checkIn.id).toEqual(expect.any(String));
   });
 
-  it("should not be able to create two check-ins", async () => {
+  it("should not be able to chech-in twice in the same day", async () => {
     await sut.execute({
       gymId: "testeGym",
       userId: "testeUser",
     });
-    await expect(() => {
+
+    await expect(() =>
       sut.execute({
         gymId: "testeGym",
         userId: "testeUser",
-      });
-    }).rejects.toBeInstanceOf(Error);
+      }),
+    ).rejects.toBeInstanceOf(Error);
   });
 });
