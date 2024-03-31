@@ -29,11 +29,12 @@ describe("Check in test", () => {
     expect(checkIn.id).toEqual(expect.any(String));
   });
 
-  it("should not be able to create two check-ins", async () => {
+  it("should not be able to chech-in twice in the same day", async () => {
     await sut.execute({
       gymId: "testeGym",
       userId: "testeUser",
     });
+    
     await expect(() =>
       sut.execute({
         gymId: "testeGym",
