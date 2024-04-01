@@ -4,6 +4,7 @@ import { CheckIn } from "@prisma/client";
 interface CheckInServiceRequest {
   userId: string;
   gymId: string;
+  
 }
 
 interface CheckInServiceResponse {
