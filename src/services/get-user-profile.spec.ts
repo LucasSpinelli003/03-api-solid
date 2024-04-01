@@ -1,8 +1,8 @@
-import { InMemoryUsersRepository } from "@/repositories/in-memory/in-memory-users-repository";
 import { describe, beforeEach, it, expect } from "vitest";
 import { GetUserProfileService } from "./get-user-profile";
 import { hash } from "bcryptjs";
 import { ResourceNotFound } from "./errors/resource-not-found";
+import { InMemoryUsersRepository } from "@/repositories/in-memory/in-memory-users-repository";
 
 describe("Get user profile", () => {
   let inMemoryRepository: InMemoryUsersRepository;

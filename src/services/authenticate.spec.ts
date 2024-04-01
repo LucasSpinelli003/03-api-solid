@@ -1,10 +1,10 @@
 import { describe } from "node:test";
 import { beforeEach, expect, it } from "vitest";
-import { InMemoryUsersRepository } from "@/repositories/in-memory/in-memory-users-repository";
 import { AuthenticateService } from "./authenticate";
 import { hash } from "bcryptjs";
 import { InvalidCredentialsError } from "./errors/invalid-credentials-error";
 import { UsersRepository } from "@/repositories/users-repository";
+import { InMemoryUsersRepository } from "@/repositories/in-memory/in-memory-users-repository";
 
 describe("Authenticate Service", () => {
   let inMemoryRepository: UsersRepository;
