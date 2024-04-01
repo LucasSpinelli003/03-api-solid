@@ -1,14 +1,27 @@
 import { InMemoryCheckInsRepository } from "@/repositories/in-memory/in-memory-check-ins-repository";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { CheckInService } from "./checkin";
+import { InMemoryGymsRepository } from "@/repositories/in-memory/in-memory-gyms-repository";
+import { Decimal } from "@prisma/client/runtime/library";
 
 describe("Check in test", () => {
   let inMemoryCheckInRepository: InMemoryCheckInsRepository;
+  let inMemoryGymsRepository: InMemoryGymsRepository;
   let sut: CheckInService;
 
   beforeEach(() => {
     inMemoryCheckInRepository = new InMemoryCheckInsRepository();
-    sut = new CheckInService(inMemoryCheckInRepository);
+    inMemoryGymsRepository = new InMemoryGymsRepository();
+    sut = new CheckInService(inMemoryCheckInRepository, inMemoryGymsRepository);
+
+    inMemoryGymsRepository.items.push({
+      id: "testeGym",
+      title: "teste",
+      description: "",
+      latitude: new Decimal(0),
+      longitude: new Decimal(0),
+      phone: "",
+    });
 
     vi.useFakeTimers();
   });
@@ -21,6 +34,8 @@ describe("Check in test", () => {
     const { checkIn } = await sut.execute({
       gymId: "testeGym",
       userId: "testeUser",
+      latitude: -23.5339776,
+      longitude: -46.563328,
     });
 
     expect(checkIn.id).toEqual(expect.any(String));
@@ -31,12 +46,16 @@ describe("Check in test", () => {
     await sut.execute({
       gymId: "testeGym",
       userId: "testeUser",
+      latitude: -23.5339776,
+      longitude: -46.563328,
     });
 
     await expect(() =>
       sut.execute({
         gymId: "testeGym",
         userId: "testeUser",
+        latitude: -23.5339776,
+        longitude: -46.563328,
       }),
     ).rejects.toBeInstanceOf(Error);
   });
@@ -45,12 +64,16 @@ describe("Check in test", () => {
     await sut.execute({
       gymId: "testeGym",
       userId: "testeUser",
+      latitude: -23.5339776,
+      longitude: -46.563328,
     });
 
     vi.setSystemTime(new Date(2022, 0, 21, 8, 0, 0));
     const { checkIn } = await sut.execute({
       gymId: "testeGym",
       userId: "testeUser",
+      latitude: -23.5339776,
+      longitude: -46.563328,
     });
     expect(checkIn.id).toEqual(expect.any(String));
   });

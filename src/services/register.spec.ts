@@ -2,9 +2,9 @@ import { describe } from "node:test";
 import { beforeEach, expect, it } from "vitest";
 import { RegisterService } from "./register";
 import { compare } from "bcryptjs";
-import { InMemoryUsersRepository } from "@/repositories/in-memory/in-memory-users-repository";
 import { UserAlreadyExistsError } from "./errors/user-already-exists-error";
 import { UsersRepository } from "@/repositories/users-repository";
+import { InMemoryUsersRepository } from "@/repositories/in-memory/in-memory-users-repository";
 
 describe("Register Service", () => {
   let inMemoryRepository: UsersRepository;
