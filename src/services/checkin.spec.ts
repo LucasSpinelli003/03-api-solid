@@ -9,19 +9,19 @@ describe("Check in test", () => {
   let inMemoryGymsRepository: InMemoryGymsRepository;
   let sut: CheckInService;
 
-  beforeEach(() => {
+  beforeEach(async () => {
     inMemoryCheckInRepository = new InMemoryCheckInsRepository();
     inMemoryGymsRepository = new InMemoryGymsRepository();
     sut = new CheckInService(inMemoryCheckInRepository, inMemoryGymsRepository);
 
-    inMemoryGymsRepository.items.push({
+    await inMemoryGymsRepository.create({
       id: "testeGym",
       title: "teste",
       description: "",
       latitude: new Decimal(-23.5339776),
       longitude: new Decimal(-46.563328),
       phone: "",
-    });
+    })
 
     vi.useFakeTimers();
   });
@@ -79,7 +79,7 @@ describe("Check in test", () => {
   });
 
   it("should not be able to check in on distance gym", async () => {
-    inMemoryGymsRepository.items.push({
+    inMemoryGymsRepository.create({
       id: "testeGym02",
       title: "teste",
       description: "",
