@@ -23,7 +23,7 @@ describe("Check in test", () => {
       latitude: new Decimal(-23.5339776),
       longitude: new Decimal(-46.563328),
       phone: "",
-    })
+    });
 
     vi.useFakeTimers();
   });

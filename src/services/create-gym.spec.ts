@@ -14,14 +14,13 @@ describe("Create Gym Service", () => {
 
   it("should be able to create a new gym", async () => {
     const { gym } = await sut.execute({
-      title:"teste",
-      description:"",
-      phone:"",
-      latitude:38.7237576,
-      longitude:-9.1614494,
+      title: "teste",
+      description: "",
+      phone: "",
+      latitude: 38.7237576,
+      longitude: -9.1614494,
     });
-    console.log(gym)
 
-    expect(gym.id).toEqual(expect.any(String))
+    expect(gym.id).toEqual(expect.any(String));
   });
 });
