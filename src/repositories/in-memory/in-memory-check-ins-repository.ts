@@ -13,7 +13,7 @@ export class InMemoryCheckInsRepository implements CheckInsRepository {
   }
 
   async countByUserId(userId: string) {
-      return this.checkIns.filter((checkIn) =>checkIn.user_id === userId).length;
+    return this.checkIns.filter((checkIn) => checkIn.user_id === userId).length;
   }
 
   async findByUserIdOnDate(userId: string, date: Date) {
