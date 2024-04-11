@@ -20,7 +20,6 @@ describe("Get User Metrics Service", () => {
       user_id: "teste_user",
     });
     const { checkInsCount } = await sut.execute({ userId: "teste_user" });
-    console.log(checkInsCount);
     expect(checkInsCount).toEqual(2);
   });
 });
