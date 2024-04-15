@@ -1,8 +1,8 @@
 import { InMemoryCheckInsRepository } from "@/repositories/in-memory/in-memory-check-ins-repository";
 import { ValidateCheckInService } from "./validate-check-in";
 import { beforeEach, describe, expect, it, vi, afterEach } from "vitest";
-import { ResourceNotFoundError } from "./errors/resource-not-found";
 import { LateCheckInValidationError } from "./errors/late-check-in-validate-error";
+import { ResourceNotFoundError } from "./errors/resource-not-found";
 
 describe("Validate Check In Service", () => {
   let inMemoryCheckInsRepository: InMemoryCheckInsRepository;
@@ -43,7 +43,7 @@ describe("Validate Check In Service", () => {
       sut.execute({
         checkInId: "invalid-id",
       }),
-    ).rejects.toBeInstanceOf(LateCheckInValidationError);
+    ).rejects.toBeInstanceOf(ResourceNotFoundError);
   });
 
   it("should not be able to validate the check-in after 20 minutes of its creation", async () => {
