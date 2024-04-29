@@ -1,6 +1,10 @@
 import { Environment } from "vitest";
 import "dotenv/config";
 import { randomUUID } from "node:crypto";
+import { execSync } from "node:child_process";
+import { PrismaClient } from "@prisma/client";
+
+const prisma = new PrismaClient();
 
 function generateDatabaseUrl(schema: string) {
   if (!process.env.DATABASE_URL) {
@@ -18,12 +22,19 @@ export default <Environment>{
   name: "prisma",
   async setup() {
     const randomSchema = randomUUID();
+    const databaseUrl = generateDatabaseUrl(randomSchema);
 
-    console.log(generateDatabaseUrl(randomSchema));
+    process.env.DATABASE_URL = databaseUrl;
+
+    execSync("npx prisma migrate deploy");
 
     return {
       async teardown() {
-        console.log("Teardown executed!");
+        await prisma.$executeRawUnsafe(
+          `DROP SCHEMA IF EXISTS "${randomSchema}" CASCADE`,
+        );
+
+        await prisma.$disconnect();
       },
     };
   },
