@@ -8,10 +8,10 @@ export async function create(request: FastifyRequest, response: FastifyReply) {
     description: z.string().nullable(),
     phone: z.string().nullable(),
     latitude: z.number().refine((value) => {
-      return Math.abs(value) <= 180;
+      return Math.abs(value) <= 90;
     }),
     longitude: z.number().refine((value) => {
-      return Math.abs(value) <= 90;
+      return Math.abs(value) <= 180;
     }),
   });
 
@@ -21,7 +21,7 @@ export async function create(request: FastifyRequest, response: FastifyReply) {
 
   const gymService = makeCreateGymService();
 
-  const gym = await gymService.execute({
+  const { gym } = await gymService.execute({
     title,
     description,
     phone,
