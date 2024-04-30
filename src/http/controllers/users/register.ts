@@ -9,7 +9,7 @@ export async function register(
 ) {
   const userRequestSchema = z.object({
     name: z.string(),
-    email: z.string(),
+    email: z.string().email(),
     password: z.string().min(6),
   });
 

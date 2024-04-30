@@ -1,5 +1,5 @@
-import { Environment } from "vitest";
 import "dotenv/config";
+import { Environment } from "vitest";
 import { randomUUID } from "node:crypto";
 import { execSync } from "node:child_process";
 import { PrismaClient } from "@prisma/client";
