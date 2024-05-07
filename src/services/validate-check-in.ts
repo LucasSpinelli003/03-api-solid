@@ -3,6 +3,7 @@ import { CheckIn } from "@prisma/client";
 import dayjs from "dayjs";
 import { LateCheckInValidationError } from "./errors/late-check-in-validate-error";
 import { ResourceNotFoundError } from "./errors/resource-not-found";
+import { AlreadyValidated } from "./errors/already-validated";
 
 interface ValidateCheckInServiceRequest {
   checkInId: string;
@@ -18,7 +19,9 @@ export class ValidateCheckInService {
     checkInId,
   }: ValidateCheckInServiceRequest): Promise<ValidateCheckInServiceResponse> {
     const checkIn = await this.checkInsRepository.findById(checkInId);
-
+    if (checkIn?.validated_at != null) {
+      throw new AlreadyValidated();
+    }
     if (!checkIn) {
       throw new ResourceNotFoundError();
     }
