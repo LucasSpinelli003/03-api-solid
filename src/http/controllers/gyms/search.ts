@@ -5,7 +5,7 @@ import { z } from "zod";
 export async function search(request: FastifyRequest, response: FastifyReply) {
   const searchRequest = z.object({
     query: z.string(),
-    page: z.number(),
+    page: z.coerce.number().min(1).default(1),
   });
 
   const { query, page } = searchRequest.parse(request.query);
