@@ -14,5 +14,5 @@ export async function search(request: FastifyRequest, response: FastifyReply) {
 
   const { gyms } = await gymService.execute({ query, page });
 
-  return response.status(201).send(gyms);
+  return response.status(200).send({ gyms });
 }

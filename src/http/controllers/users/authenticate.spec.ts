@@ -13,14 +13,14 @@ describe("Authenticate tests", () => {
 
   it("should be able to authenticate", async () => {
     await request(app.server).post("/users").send({
-      name: "lucas",
-      email: "lucas.spina@tecs.com",
-      password: "asdadsadasd",
+      name: "user",
+      email: "user@fakeuser.com",
+      password: "fakePassword",
     });
 
     const token = await request(app.server).post("/sessions").send({
-      email: "lucas.spina@tecs.com",
-      password: "asdadsadasd",
+      email: "user@fakeuser.com",
+      password: "fakePassword",
     });
 
     expect(token.statusCode).toEqual(200);
