@@ -10,7 +10,7 @@ export async function validate(
   response: FastifyReply,
 ) {
   const validationRequest = z.object({
-    checkInId: z.string(),
+    checkInId: z.string().uuid(),
   });
 
   try {
@@ -22,7 +22,7 @@ export async function validate(
       checkInId,
     });
 
-    return response.status(200).send(checkIn);
+    return response.status(204).send(checkIn);
   } catch (error) {
     if (error instanceof ResourceNotFoundError) {
       return response.status(404).send({ error: error.message });

@@ -8,11 +8,11 @@ export async function create(request: FastifyRequest, response: FastifyReply) {
   });
 
   const checkInBodyRequest = z.object({
-    userLatitude: z.number().refine((value) => {
-      return value <= 90;
+    userLatitude: z.coerce.number().refine((value) => {
+      return Math.abs(value) <= 90;
     }),
-    userLongitude: z.number().refine((value) => {
-      return value <= 180;
+    userLongitude: z.coerce.number().refine((value) => {
+      return Math.abs(value) <= 180;
     }),
   });
 
