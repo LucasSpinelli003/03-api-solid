@@ -1,3 +1,4 @@
+import { AlreadyValidated } from "@/services/errors/already-validated";
 import { LateCheckInValidationError } from "@/services/errors/late-check-in-validate-error";
 import { ResourceNotFoundError } from "@/services/errors/resource-not-found";
 import { makeValidateCheckInService } from "@/services/factories/make-validate-check-in-service";
@@ -27,6 +28,9 @@ export async function validate(
       return response.status(404).send({ error: error.message });
     }
     if (error instanceof LateCheckInValidationError) {
+      return response.status(400).send({ error: error.message });
+    }
+    if (error instanceof AlreadyValidated) {
       return response.status(400).send({ error: error.message });
     }
   }
