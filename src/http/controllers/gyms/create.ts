@@ -29,5 +29,5 @@ export async function create(request: FastifyRequest, response: FastifyReply) {
     longitude,
   });
 
-  return response.status(201).send(gym);
+  return response.status(201).send({ gym });
 }

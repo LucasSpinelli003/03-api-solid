@@ -4,22 +4,22 @@ import { z } from "zod";
 
 export async function nearby(request: FastifyRequest, response: FastifyReply) {
   const gymRequest = z.object({
-    latitude: z.coerce.number().refine((value) => {
+    userLatitude: z.coerce.number().refine((value) => {
       return Math.abs(value) <= 90;
     }),
-    longitude: z.coerce.number().refine((value) => {
+    userLongitude: z.coerce.number().refine((value) => {
       return Math.abs(value) <= 180;
     }),
   });
 
-  const { latitude, longitude } = gymRequest.parse(request.query);
+  const { userLatitude, userLongitude } = gymRequest.parse(request.query);
 
   const gymService = makeFetchNearByGyms();
 
   const { gyms } = await gymService.execute({
-    userLatitude: latitude,
-    userLongitude: longitude,
+    userLatitude,
+    userLongitude,
   });
 
-  return response.status(201).send(gyms);
+  return response.status(200).send({ gyms });
 }

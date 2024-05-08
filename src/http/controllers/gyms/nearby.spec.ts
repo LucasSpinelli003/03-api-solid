@@ -38,7 +38,8 @@ describe("Search nearby gyms tests end to end ", () => {
     const response = await request(app.server)
       .get("/gyms/nearby")
       .query({
-        query: "Typescript",
+        userLatitude: 10,
+        userLongitude: 10,
       })
       .set("Authorization", `Bearer ${token}`)
       .send();
@@ -47,7 +48,7 @@ describe("Search nearby gyms tests end to end ", () => {
     expect(response.body.gyms).toHaveLength(1);
     expect(response.body.gyms).toEqual([
       expect.objectContaining({
-        title: "Typescript",
+        title: "Javascript GYm",
       }),
     ]);
   });

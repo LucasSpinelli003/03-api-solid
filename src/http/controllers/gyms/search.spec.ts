@@ -39,6 +39,7 @@ describe("Search Gym tests end to end ", () => {
       .get("/gyms/search")
       .query({
         query: "Typescript",
+        page: 1,
       })
       .set("Authorization", `Bearer ${token}`)
       .send();

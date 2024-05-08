@@ -3,7 +3,7 @@ import { afterAll, beforeAll, describe, expect, it } from "vitest";
 import request from "supertest";
 import { createAndAuthenticateUser } from "@/services/utils/test/create-and-authenticate-user";
 
-describe("Create Gym tests end to end ", () => {
+describe("Create check-in tests end to end ", () => {
   beforeAll(async () => {
     await app.ready();
   });
@@ -12,7 +12,7 @@ describe("Create Gym tests end to end ", () => {
     await app.close();
   });
 
-  it("should be able to create a gym", async () => {
+  it("should be able to create a check-in", async () => {
     const { token } = await createAndAuthenticateUser(app);
 
     const createGym = await request(app.server)
@@ -26,9 +26,16 @@ describe("Create Gym tests end to end ", () => {
         longitude: 180,
       });
 
-    expect(createGym.statusCode).toEqual(201);
-    expect(createGym.body.gym).toEqual(
-      expect.objectContaining({ title: "Javascript GYm" }),
-    );
+    const gymId = createGym.body.gym.id;
+
+    const createCheckIn = await request(app.server)
+      .post(`/gyms/${gymId}/check-ins`)
+      .set("Authorization", `Bearer ${token}`)
+      .send({
+        userLatitude: 90,
+        userLongitude: 180,
+      });
+
+    expect(createCheckIn.statusCode).toEqual(201);
   });
 });
