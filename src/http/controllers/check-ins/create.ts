@@ -31,5 +31,5 @@ export async function create(request: FastifyRequest, response: FastifyReply) {
     userLongitude,
   });
 
-  return response.status(201).send(checkIn);
+  return response.status(201).send({ checkIn });
 }
