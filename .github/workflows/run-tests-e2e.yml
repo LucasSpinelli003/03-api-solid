@@ -1,6 +1,6 @@
 name: Run Tests E2E
 
-on: [Pull Request]
+on: [pull_request]
 
 jobs:
   run-test-e2e:
@@ -8,11 +8,11 @@ jobs:
     runs-on: ubuntu-latest
 
     services:
-      postegres:
+      postgres:
         image: bitnami/postgresql
         ports:
           - 3000:5432
-        environment:
+        env:
           POSTGRESQL_USERNAME: docker
           POSTGRESQL_PASSWORD: docker
           POSTGRESQL_DATABASE: apisolid
