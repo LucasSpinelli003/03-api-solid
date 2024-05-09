@@ -7,7 +7,7 @@ import { UsersRepository } from "@/repositories/users-repository";
 import { InMemoryUsersRepository } from "@/repositories/in-memory/in-memory-users-repository";
 
 describe("Authenticate Service", () => {
-  let inMemoryRepository: UsersRepository;
+  let inMemoryRepository: InMemoryUsersRepository;
   let sut: AuthenticateService;
 
   beforeEach(() => {
